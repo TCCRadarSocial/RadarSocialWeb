@@ -43,6 +43,15 @@
 	<!-- DirPagination -->
 	<script src="<c:url value="/resources/js/dirPagination.js"/>" type="text/javascript"></script>
 	
+	<!-- datetimepicker -->
+	<script src="<c:url value="/resources/js/bootstrap-datetimepicker.min.js"/>" type="text/javascript"></script>
+	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-datetimepicker.min.css"/>"  type="text/css" />
+	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-datetimepicker.css"/>"  type="text/css" />
+	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-datetimepicker-standalone.css"/>"  type="text/css" />
+	<script src="<c:url value="/resources/js/pt-br.js"/>" type="text/javascript"></script>
+	
+	
+	
 	<title>Radar Social</title>
 </head>
 <body ng-app="myApp">

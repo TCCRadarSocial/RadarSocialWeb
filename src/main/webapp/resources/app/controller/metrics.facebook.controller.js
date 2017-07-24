@@ -1,12 +1,39 @@
 //angular.module('myApp', []).controller('facebookController', ['$scope',function($scope){
 angular.module('myApp').controller('facebookController', function($scope,$http,$q,$rootScope) {
-	    	
+	
+	$scope.dataInicial = moment().subtract(1, 'days').utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
+	$scope.dataFinal = moment().utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
+	
+	$scope.portal = "";
+	$scope.link = "";
+	$scope.labelPortais = "";
+	$scope.labelLink = "";
+	
+	$(function () {
+		$('#datetimepicker1').datetimepicker({
+            locale: 'pt-br'
+        });
+		$('#datetimepicker2').datetimepicker({
+            locale: 'pt-br'
+        });
+    });
+	
+	$rootScope.buscar = function(){
+		$scope.dataInicial = angular.element(document.querySelector('#dataInicial')).val();
+		$scope.dataFinal = angular.element(document.querySelector('#dataFinal')).val();
+		$scope.dataInicial =   moment($scope.dataInicial, 'DD/MM/YYYY - HH:mm:ss').utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
+		$scope.dataFinal =   moment($scope.dataFinal, 'DD/MM/YYYY - HH:mm:ss').utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
+		carregaTudo();
+	}
+	
 	carregaTudo();
 	
 	function carregaTudo(){
 		carregaGraficoLinha();
 		carregaTabela();
 		carregaGraficoPizza();
+		$scope.labelDataInicial = moment($scope.dataInicial, 'YYYY-MM-DDTHH:mm:ss.000Z').format('DD/MM/YYYY - HH:mm:ss');
+		$scope.labelDataFinal = moment($scope.dataFinal, 'YYYY-MM-DDTHH:mm:ss.000Z').format('DD/MM/YYYY - HH:mm:ss');
 	}
 	
 	$scope.currentPage = 1;
@@ -17,7 +44,7 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 	
 	
 	$scope.dateFormat = {
-			format: 'DD/MM/YYYY HH:mm',
+			format: 'DD/MM/YYYY HH:mm:ss',
 			name: 'Dia/Mês/Ano'
 	}
 	/* Chart options */
@@ -57,7 +84,7 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 			xAxis : {
 				axisLabel : 'Data/Hora',
 				tickFormat : function(d) {
-					return moment.unix(d).format($scope.dateFormat.format);
+					return moment.unix(d).utc().format($scope.dateFormat.format);
 					
 				},
 				ticks : 1,
@@ -86,10 +113,10 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 //		               $rootScope.dataInicialAnterior = $rootScope.dataInicial;
 //		               $rootScope.dataFinalAnterior = $rootScope.dataFinal;
 //		               
-//		               $rootScope.dataInicial =  moment(data).format("YYYY-MM-DDTHH:mm:ss");
-//	            	   $rootScope.dataFinal = moment(data).format("YYYY-MM-DDTHH:mm:ss");
+		               $scope.dataInicial =  moment.unix(data).utc().format("YYYY-MM-DDTHH:mm:ss")+'.000Z';
+	            	   $scope.dataFinal = moment.unix(data).utc().add(1,'second').format("YYYY-MM-DDTHH:mm:ss")+'.000Z';
 //	            	   
-//	            	   getMetrics();
+	            	   carregaTudo();
 
 		            });
 			},
@@ -112,15 +139,16 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
         	reactions = [],
         	totalMetrics = [];
 
-//		var baseQuery = '{ "references": ['+$rootScope.arrayReferencia+'],"slug":['+$rootScope.filtroSlug+'], "dateStart": "'+$rootScope.dataInicial+'", "dateFinish": "'+$rootScope.dataFinal+'", "groupBy" : "'+agrupamento+'","orderBy" : "" ,"orderByDirection" : "ASC"}';
-//		var query = JSON.parse( baseQuery );
+		var baseQuery = '[{"portal": "'+$scope.portal+'","dataInicial": "'+$scope.dataInicial+'","dataFinal": "'+$scope.dataFinal+'","link":"'+$scope.link+'"}]';
+		var query = JSON.parse( baseQuery );
 		var deferred = $q.defer();
 			
-		var method = 'GET';
-		var url = '/RadarSocialRegras/facebook';
+		var method = 'POST';
+		var url = '/RadarSocialRegras/facebookSearch';
 		var req = {
 			method : method,
-			url : url
+			url : url,
+			data: query
 			}
 
 		$http(req).success(function(data, status, headers, config){ 
@@ -151,6 +179,12 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 	$scope.sortType = "likes";   
     $scope.reverse = !$scope.reverse;
     
+    $scope.filtrarURL = function(link){
+    	$scope.link = link;
+    	$scope.labelLink = link;
+    	carregaTudo();
+    }
+    
 	//ordena colunas da tabela padrao
 	 $scope.sortBy = function(keyname){
       $scope.sortType = keyname;   
@@ -164,13 +198,16 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 		
 	    $scope.metricas = [];
 		
+	    var baseQuery = '[{"portal": "'+$scope.portal+'","dataInicial": "'+$scope.dataInicial+'","dataFinal": "'+$scope.dataFinal+'","link":"'+$scope.link+'"}]';
+		var query = JSON.parse( baseQuery );
 	    var deferred = $q.defer();
 		
-		var method = 'GET';
-		var url = '/RadarSocialRegras/facebook';
+		var method = 'POST';
+		var url = '/RadarSocialRegras/facebookSearch';
 		var req = {
 			method : method,
-			url : url
+			url : url,
+			data: query
 			}
 	
 		$http(req).success(function(data, status, headers, config){ 
@@ -181,14 +218,17 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 			total = data.total;
 
 			data.map(function(metric){
-
+				
+				data = moment(metric.dataCriacao.$date, 'YYYY-MM-DDTHH:mm:ss.000Z').format('DD/MM/YYYY - HH:mm:ss');
+				
 				$scope.metricas.push({
 					link : metric.link,
 					nomePagina: metric.nomePagina,
 					comments: metric.comments,
 					likes: metric.likes,
 					shares: metric.shares,
-					reactions: metric.reactions
+					reactions: metric.reactions,
+					dataCriacao : data
 				});
 				
 			})
@@ -206,6 +246,7 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 		var totalOutros = 0;
 		var dataPieFinal = [];
 		$scope.testdata2 = [];
+		$scope.labelPortais = [];
 
 //		var baseQuery = '{ "references": ['+$rootScope.arrayReferencia+'], "slug":['+$rootScope.filtroSlug+'],"dateStart": "'+$rootScope.dataInicial+'", "dateFinish": "'+$rootScope.dataFinal+'", "groupBy" : "referencia","orderBy" : "" ,"orderByDirection" : "DESC"}';
 //		var query = JSON.parse( baseQuery );
@@ -231,9 +272,12 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 			
 			for(var i = 0; i < totalReactions.length; i++){
 				dataPie.push({key: portais[i], y: totalReactions[i]});
+				$scope.labelPortais.push(portais[i]);
 			}
 			
 			$scope.testdata2 = dataPie;
+			
+			
 //		    $scope.filtroReferencia = dataPie[0].key;
 //		    
 //		    if($scope.testdata2.length == 1){
@@ -297,6 +341,7 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 			
 			dado['URL'] = item['link'];
 			dado['Página'] = item['nomePagina'];
+			dado['Data Criação'] = item['dataCriacao'];
 			dado['Comentários'] = item['comments'];
 			dado['Curtidas'] = item['likes'];
 //			dado['Posts Compartilhados'] = item['sharedPosts'];

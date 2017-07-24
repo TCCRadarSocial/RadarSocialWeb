@@ -1,5 +1,47 @@
 <%@include file="/header.jsp"%>
 <div ng-app="myApp" ng-controller='facebookController'>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class='col-lg-12' align="center">
+				<Strong>Filtros:</Strong> <br> <span
+					ng-if="labelDataInicial != ''">Data Inicial:
+					{{labelDataInicial}} |</span> 
+					<span ng-if="labelDataFinal != ''">Data
+					Final: {{labelDataFinal}} |</span> 
+					<span ng-if="labelLink != ''">Link:
+					{{labelLink}} |</span> 
+					<span ng-if="labelPortais != ''">Portais:
+					{{labelPortais}}</span> <br>
+			</div>
+			
+			<!-- <div class="col-lg-12" align="center"> -->
+				<div class='col-sm-3'>
+					Data Inicial:
+					<div class='input-group date' id='datetimepicker1'
+						data-ng-model="dataInicial">
+						<input type='text' class="form-control" id="dataInicial" /> <span
+							class="input-group-addon"> <span
+							class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+				</div>
+				<div class='col-sm-3'>
+					Data Final:
+					<div class='input-group date' id='datetimepicker2'
+						data-ng-model="dataFinal">
+						<input type='text' class="form-control" id="dataFinal" /> <span
+							class="input-group-addon"> <span
+							class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+				</div>
+				
+				<button type="button" class="btn btn-primary" ng-click="buscar()">
+					<span class="glyphicon glyphicon-search"></span> Buscar
+				</button>
+			<!-- </div> -->
+		</div>
+	</div>
 	<div>
 		<div class="col-md-8">
 			<nvd3 options='options' data='data'></nvd3>
@@ -24,6 +66,10 @@
 					<th><a href="" ng-click="sortBy('nomePagina')"> Página <span
 							ng-show="sortType == 'nomePagina'" class="fa fa-caret-down"></span>
 					</a></th>
+					<th><a href="" ng-click="sortBy('dataCriacao')" title="Data Criação">
+							Data criação <span ng-show="sortType == 'dataCriacao'"
+							class="fa fa-caret-down"></span>
+					</a></th>
 					<th><a href="" ng-click="sortBy('comments')"> Comentários
 							<span ng-show="sortType == 'comments'" class="fa fa-caret-down"></span>
 					</a></th>
@@ -44,7 +90,9 @@
 				<!-- <tr ng-repeat="portal in portais |orderBy:sort.column:sort.descending| filter:paginate"> -->
 
 				<!-- <tr ng-repeat="metrica in metricas"> -->
-				<tr dir-paginate="metrica in metricas|orderBy:sortType:reverse|itemsPerPage:10 "current-page="currentPage">
+				<tr
+					dir-paginate="metrica in metricas|orderBy:sortType:reverse|itemsPerPage:10 "
+					current-page="currentPage">
 					<td title="{{ metrica.link }}"><span
 						class="glyphicon glyphicon-filter"
 						ng-click="filtrarURL(metrica.link)"></span> <i
@@ -54,6 +102,7 @@
 						ng-click="defineModal(metrica.groupBy); buscaModalFbAnalytics();">{{
 							metrica.link }}</a></td>
 					<td>{{ metrica.nomePagina }}</td>
+					<td>{{ metrica.dataCriacao}}</td>
 					<td>{{ metrica.comments.toLocaleString("pt-br") }}</td>
 					<td>{{ metrica.likes.toLocaleString("pt-br") }}</td>
 					<!-- <td>{{ metrica.sharedPosts.toLocaleString("pt-br") }}</td> -->
