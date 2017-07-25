@@ -7,11 +7,17 @@
 					ng-if="labelDataInicial != ''">Data Inicial:
 					{{labelDataInicial}} |</span> 
 					<span ng-if="labelDataFinal != ''">Data
-					Final: {{labelDataFinal}} |</span> 
+					Final: {{labelDataFinal}} <button type="button" class="btn btn-primary" 
+					 ng-if="dataInicialAnterior !='' && dataFinalAnterior != ''" 
+					 ng-click="RedefinirData()">Redefinir Filtro</button> 
+					|</span>
 					<span ng-if="labelLink != ''">Link:
-					{{labelLink}} |</span> 
+					{{labelLink}} <button type="button" ng-if="link != ''" class="btn btn-primary" 
+					ng-click="RedefinirLink()">Redefinir Filtro</button>|</span> 
 					<span ng-if="labelPortais != ''">Portais:
-					{{labelPortais}}</span> <br>
+					{{labelPortais}}</span> 
+					<button type="button" class="btn btn-primary" ng-click="RedefinirPortal()" ng-if="portal != ''">Redefinir Filtro</button>
+					<br>
 			</div>
 			
 			<!-- <div class="col-lg-12" align="center"> -->

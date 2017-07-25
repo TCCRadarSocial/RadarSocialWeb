@@ -8,6 +8,8 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 	$scope.link = "";
 	$scope.labelPortais = "";
 	$scope.labelLink = "";
+	$scope.dataInicialAnterior = "";
+    $scope.dataFinalAnterior = "";
 	
 	$(function () {
 		$('#datetimepicker1').datetimepicker({
@@ -19,10 +21,30 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
     });
 	
 	$rootScope.buscar = function(){
+		$scope.portal = "";
 		$scope.dataInicial = angular.element(document.querySelector('#dataInicial')).val();
 		$scope.dataFinal = angular.element(document.querySelector('#dataFinal')).val();
 		$scope.dataInicial =   moment($scope.dataInicial, 'DD/MM/YYYY - HH:mm:ss').utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
 		$scope.dataFinal =   moment($scope.dataFinal, 'DD/MM/YYYY - HH:mm:ss').utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
+		carregaTudo();
+	}
+	
+	$scope.RedefinirData = function(){
+		$scope.dataInicial = $scope.dataInicialAnterior;
+		$scope.dataFinal = $scope.dataFinalAnterior;
+		$scope.dataInicialAnterior = "";
+        $scope.dataFinalAnterior = "";
+        
+        carregaTudo();
+	}
+	
+	$scope.RedefinirLink = function(){
+		$scope.link = "";
+		$scope.labelLink = "";
+		carregaTudo();		
+	}
+	$scope.RedefinirPortal = function(){
+		$scope.portal = "";
 		carregaTudo();
 	}
 	
@@ -110,12 +132,12 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 		               var data;
 		               data = e[0].point.x;
 		               
-//		               $rootScope.dataInicialAnterior = $rootScope.dataInicial;
-//		               $rootScope.dataFinalAnterior = $rootScope.dataFinal;
-//		               
+		               $scope.dataInicialAnterior = $scope.dataInicial;
+		               $scope.dataFinalAnterior = $scope.dataFinal;
+		               
 		               $scope.dataInicial =  moment.unix(data).utc().format("YYYY-MM-DDTHH:mm:ss")+'.000Z';
 	            	   $scope.dataFinal = moment.unix(data).utc().add(1,'second').format("YYYY-MM-DDTHH:mm:ss")+'.000Z';
-//	            	   
+    	   
 	            	   carregaTudo();
 
 		            });
@@ -248,15 +270,16 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 		$scope.testdata2 = [];
 		$scope.labelPortais = [];
 
-//		var baseQuery = '{ "references": ['+$rootScope.arrayReferencia+'], "slug":['+$rootScope.filtroSlug+'],"dateStart": "'+$rootScope.dataInicial+'", "dateFinish": "'+$rootScope.dataFinal+'", "groupBy" : "referencia","orderBy" : "" ,"orderByDirection" : "DESC"}';
-//		var query = JSON.parse( baseQuery );
+		var baseQuery = '[{"portal":"'+$scope.portal+'","dataInicial": "'+$scope.dataInicial+'","dataFinal": "'+$scope.dataFinal+'","link":"'+$scope.link+'"}]';
+		var query = JSON.parse( baseQuery );
 		var deferred = $q.defer();
 			
-		var method = 'GET';
+		var method = 'POST';
 		var url = '/RadarSocialRegras/facebookPortais';
 		var req = {
 			method : method,
-			url : url
+			url : url,
+			data: query
 		}
 
 		$http(req).success(function(data, status, headers, config){ 
@@ -264,6 +287,8 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 		}).error(deferred.resolve);
 
 		deferred.promise.then(function(data) {
+			
+			
 			data.result.map(function(metric){
 				totalReactions.push(metric.sum);
 				portais.push(metric._id);
@@ -278,22 +303,6 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 			$scope.testdata2 = dataPie;
 			
 			
-//		    $scope.filtroReferencia = dataPie[0].key;
-//		    
-//		    if($scope.testdata2.length == 1){
-//			    $rootScope.labelPortais = $scope.filtroReferencia;
-//				$rootScope.arrayReferencia ="\""+$scope.filtroReferencia+"\"";
-//		    }else if($scope.testdata2.length > 1){
-//		    	$rootScope.arrayReferencia = [];
-//		    	for(var i = 0; i < $scope.testdata2.length;i++)
-//		    		$rootScope.arrayReferencia.push("\"" + $scope.testdata2[i].key + "\"");
-//		    	$rootScope.arrayReferencia = $rootScope.arrayReferencia.join(", ");
-//		    	
-//		    	$rootScope.labelPortais = $rootScope.arrayReferencia;
-//		    }
-//		    
-//		    $scope.qtdResultados = dataPie.length;
-		    //var testdata2 = dataPieFinal;
 		    
 		    var height = 400;
 		    var width = 480;
@@ -311,14 +320,15 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 
 		            chart.tooltip.valueFormatter(function(d){return d.toLocaleString("pt-br")});
 		            
-//		            chart.pie.dispatch.on("elementClick", function(e) {
-//		            	$scope.$apply(function () {
-//		            		var key = e.data.key;
-//		            		if ($scope.selection.indexOf(key) < 0) {
-//		            			$scope.selection.push(e.data.key);
-//		            		}
-//		                });
-//		            });
+		            chart.pie.dispatch.on("elementClick", function(e) {
+		            	$scope.$apply(function () {
+		            		var key = e.data.key;
+		            		
+		            		$scope.portal = key;
+		            		
+		            		carregaTudo();
+		                });
+		            });
 		        		            
 		        d3.select("#test1")
 		            .datum($scope.testdata2)
