@@ -364,8 +364,43 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 	};
 	
 	$scope.exportarPdf = function(){
-	      
+		var dados = [];
+		$scope.metricas.map(function(item){
+			var dado = {};
+			
+//			dado['URL'] = item['link'];
+			dado['Página'] = item['nomePagina'];
+			dado['Data Criação'] = item['dataCriacao'];
+			dado['Comentários'] = item['comments'];
+			dado['Curtidas'] = item['likes'];
+//			dado['Posts Compartilhados'] = item['sharedPosts'];
+			dado['Compartilhados'] = item['shares'];
+			dado['Reações'] = item['reactions'];
+			dados.push(dado);
+		})
+		
+		callme(dados);
 	};
+	
+	function callme(dados){
+		var table = dados;
+		var doc = new jsPDF('l','pt','letter',true);
+
+
+		$.each(table, function(i, row){
+			$.each(row, function(j,cell){
+			if(j=="Data Criação"){
+			 doc.cell(1,10,190,20,cell,i);	
+			}
+			else{
+				doc.cell(1,10,90,20,cell,i);
+			}
+			
+			});
+		});
+
+		doc.save('relatorio.pdf');
+		}
 	
 
 });

@@ -50,6 +50,8 @@
 	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap-datetimepicker-standalone.css"/>"  type="text/css" />
 	<script src="<c:url value="/resources/js/pt-br.js"/>" type="text/javascript"></script>
 	
+	<!-- jsPdf -->
+	<script src="<c:url value="/resources/js/jsPdf.js"/>" type="text/javascript"></script>
 	
 	
 	<title>Radar Social</title>
