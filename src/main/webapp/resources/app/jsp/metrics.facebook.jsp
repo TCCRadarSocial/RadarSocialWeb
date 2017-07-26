@@ -22,6 +22,7 @@
 			</div>
 			
 			<!-- <div class="col-lg-12" align="center"> -->
+			
 				<div class='col-sm-3'>
 					Data Inicial:
 					<div class='input-group date' id='datetimepicker1'
@@ -36,16 +37,17 @@
 					Data Final:
 					<div class='input-group date' id='datetimepicker2'
 						data-ng-model="dataFinal">
-						<input type='text' class="form-control" id="dataFinal" /> <span
+						<input type='text' class="form-control" id="dataFinal"/> <span
 							class="input-group-addon"> <span
 							class="glyphicon glyphicon-calendar"></span>
 						</span>
 					</div>
 				</div>
 				
-				<button type="button" class="btn btn-primary" ng-click="buscar()">
+				<button type="button" class="btn btn-primary" ng-click="buscar()" id="botaoBuscar">
 					<span class="glyphicon glyphicon-search"></span> Buscar
 				</button>
+		
 			<!-- </div> -->
 		</div>
 	</div>

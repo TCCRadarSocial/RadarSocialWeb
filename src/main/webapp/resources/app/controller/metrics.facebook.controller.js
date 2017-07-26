@@ -21,12 +21,24 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
     });
 	
 	$rootScope.buscar = function(){
-		$scope.portal = "";
-		$scope.dataInicial = angular.element(document.querySelector('#dataInicial')).val();
-		$scope.dataFinal = angular.element(document.querySelector('#dataFinal')).val();
-		$scope.dataInicial =   moment($scope.dataInicial, 'DD/MM/YYYY - HH:mm:ss').utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
-		$scope.dataFinal =   moment($scope.dataFinal, 'DD/MM/YYYY - HH:mm:ss').utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
-		carregaTudo();
+
+
+		if(angular.element(document.querySelector('#dataInicial')).val() != "" && angular.element(document.querySelector('#dataFinal')).val() != ""){
+			
+			$scope.dataInicial = angular.element(document.querySelector('#dataInicial')).val();
+			$scope.dataInicial =   moment($scope.dataInicial, 'DD/MM/YYYY - HH:mm:ss').utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
+			$scope.dataFinal = angular.element(document.querySelector('#dataFinal')).val();
+			$scope.dataFinal =   moment($scope.dataFinal, 'DD/MM/YYYY - HH:mm:ss').utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
+			
+			if($scope.dataInicial > $scope.dataFinal){
+				alert("Selecione as datas corretamente");
+			}else{
+				$scope.portal = "";
+				carregaTudo();
+			}
+		}else{
+			alert("Selecione as datas corretamente");
+		}
 	}
 	
 	$scope.RedefinirData = function(){

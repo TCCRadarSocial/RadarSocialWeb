@@ -11,6 +11,10 @@
 	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>"  type="text/css" />
 	<script src="<c:url value="/resources/js/bootstrap.js"/>" type="text/javascript"></script> 
 	<script src="<c:url value="/resources/js/bootstrap.min.js"/>" type="text/javascript"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>
+	
+	
+	
 	
 	<link rel="stylesheet" href="<c:url value="/resources/css/font-awesome.min.css"/>"  type="text/css" />
 	
