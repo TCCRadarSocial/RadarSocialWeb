@@ -6,8 +6,11 @@
 <head>
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> --> 
 	 <script src="<c:url value="/resources/js/angular.min.js"/>" type="text/javascript"></script> 
+<<<<<<< HEAD
 	 <script src="<c:url value="/resources/js/angular-masonry.min.js"/>" type="text/javascript"></script>	 
 	 
+=======
+>>>>>>> 514cf552c2b6278a618e02b3930858e01dea853e
 	<script src="<c:url value="/resources/js/jquery-3.2.1.js"/>" type="text/javascript"></script>
 	<script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>" type="text/javascript"></script>
 	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.css"/>" type="text/css"  />
@@ -27,7 +30,10 @@
 	<script src="<c:url value="/resources/app/controller/app.controller.js"/>"></script>
 	<script src="<c:url value="/resources/app/controller/metrics.facebook.controller.js"/>"></script>
 	<script src="<c:url value="/resources/app/controller/metrics.twitter.controller.js"/>"></script> 
+<<<<<<< HEAD
 	<script src="<c:url value="/resources/app/controller/metrics.feed.controller.js"/>"></script> 
+=======
+>>>>>>> 514cf552c2b6278a618e02b3930858e01dea853e
 	
 	<!-- angular -->
 	
