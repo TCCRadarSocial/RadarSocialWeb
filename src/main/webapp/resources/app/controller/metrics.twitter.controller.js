@@ -1,5 +1,5 @@
 //angular.module('myApp', []).controller('facebookController', ['$scope',function($scope){
-angular.module('myApp').controller('facebookController', function($scope,$http,$q,$rootScope) {
+angular.module('myApp').controller('twitterController', function($scope,$http,$q,$rootScope) {
 	
 	$scope.dataInicial = moment().subtract(1, 'days').utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
 	$scope.dataFinal = moment().utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
@@ -167,10 +167,10 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 	
 	function carregaGraficoLinha(){
 
-		var comments = [], 
-        	likes = [], 
-        	shares = [],
-        	reactions = [],
+		var retweets = [], 
+        	favorites = [], 
+        	link = [],
+//        	texto = [],
         	totalMetrics = [];
 
 		var baseQuery = '[{"portal": "'+$scope.portal+'","dataInicial": "'+$scope.dataInicial+'","dataFinal": "'+$scope.dataFinal+'","link":"'+$scope.link+'"}]';
@@ -178,7 +178,7 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 		var deferred = $q.defer();
 			
 		var method = 'POST';
-		var url = '/RadarSocialRegras/facebookSearch';
+		var url = '/RadarSocialRegras/twitterSearch';
 		var req = {
 			method : method,
 			url : url,
@@ -193,24 +193,20 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 			
 			data.map(function(metric){
 				
-					comments.push({x: moment(metric.dataGravacao.$date).unix(), y: metric.comments}),
-					likes.push({x: moment(metric.dataGravacao.$date).unix(), y: metric.likes}), 
-					shares.push({x: moment(metric.dataGravacao.$date).unix(), y: metric.shares}); 
-					reactions.push({x: moment(metric.dataGravacao.$date).unix(), y: metric.reactions}); 
+					retweets.push({x: moment(metric.dataGravacao.$date).unix(), y: metric.retweets}),
+					favorites.push({x: moment(metric.dataGravacao.$date).unix(), y: metric.favorites}) 
 			
 			})
 			
 			$scope.data = [ 
-			               { values: comments, key: 'Comentários', color: '#7777ff', area: false },
-			               { values: likes, key: 'Curtidas', color: '#2ca02c' },
-			               { values: shares, key: 'Compartilhados', color: '#ff00bf' },
-			               { values: reactions, key: 'Reações', color: '#ff0000' }
+			               { values: retweets, key: 'Retweets', color: '#7777ff', area: false },
+			               { values: favorites, key: 'Favorites', color: '#2ca02c' }
 	            ];
          });
 		
 	}
 	
-	$scope.sortType = "likes";   
+	$scope.sortType = "retweets";   
     $scope.reverse = !$scope.reverse;
     
     $scope.filtrarURL = function(link){
@@ -237,7 +233,7 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 	    var deferred = $q.defer();
 		
 		var method = 'POST';
-		var url = '/RadarSocialRegras/facebookSearch';
+		var url = '/RadarSocialRegras/twitterSearch';
 		var req = {
 			method : method,
 			url : url,
@@ -253,15 +249,14 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 
 			data.map(function(metric){
 				
-				data = moment(metric.dataCriacao.$date, 'YYYY-MM-DDTHH:mm:ss.000Z').utc().format('DD/MM/YYYY - HH:mm:ss');
+				data = moment(metric.dataCriacao.$date, 'YYYY-MM-DDTHH:mm:ss.000Z').format('DD/MM/YYYY - HH:mm:ss');
 				
 				$scope.metricas.push({
 					link : metric.link,
-					nomePagina: metric.nomePagina,
-					comments: metric.comments,
-					likes: metric.likes,
-					shares: metric.shares,
-					reactions: metric.reactions,
+					nomeTwitter: metric.nomeTwitter,
+					texto: metric.texto,
+					retweets: metric.retweets,
+					favorites: metric.favorites,
 					dataCriacao : data
 				});
 				
@@ -273,7 +268,7 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 	//popula grafico de pizza
 	function carregaGraficoPizza(){
 		
-		var totalReactions = [];
+		var totalRetweets = [];
 		var portais = [];
 		var dataPie = [];
 		var total = 0;
@@ -287,7 +282,7 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 		var deferred = $q.defer();
 			
 		var method = 'POST';
-		var url = '/RadarSocialRegras/facebookPortais';
+		var url = '/RadarSocialRegras/twitterPortais';
 		var req = {
 			method : method,
 			url : url,
@@ -302,13 +297,13 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 			
 			
 			data.result.map(function(metric){
-				totalReactions.push(metric.sum);
+				totalRetweets.push(metric.sum);
 				portais.push(metric._id);
 			})
 			
 			
-			for(var i = 0; i < totalReactions.length; i++){
-				dataPie.push({key: portais[i], y: totalReactions[i]});
+			for(var i = 0; i < totalRetweets.length; i++){
+				dataPie.push({key: portais[i], y: totalRetweets[i]});
 				$scope.labelPortais.push(portais[i]);
 			}
 			
@@ -362,57 +357,55 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 			var dado = {};
 			
 			dado['URL'] = item['link'];
-			dado['Página'] = item['nomePagina'];
+			dado['Twitter'] = item['nomeTwitter'];
 			dado['Data Criação'] = item['dataCriacao'];
-			dado['Comentários'] = item['comments'];
-			dado['Curtidas'] = item['likes'];
-//			dado['Posts Compartilhados'] = item['sharedPosts'];
-			dado['Compartilhados'] = item['shares'];
-			dado['Reações'] = item['reactions'];
+			dado['Tweet'] = item['texto'];
+			dado['Retweets'] = item['retweets'];
+			dado['Favorites'] = item['favorites'];
 			dados.push(dado);
 		})
-		alasql('SELECT * INTO XLSX("relatorio.xlsx",{headers:true}) FROM ? ORDER BY Curtidas DESC',[dados]);
+		alasql('SELECT * INTO XLSX("relatorio_twitter.xlsx",{headers:true}) FROM ? ORDER BY Retweets DESC',[dados]);
 	  
 	};
 	
-	$scope.exportarPdf = function(){
-		var dados = [];
-		$scope.metricas.map(function(item){
-			var dado = {};
-			
-//			dado['URL'] = item['link'];
-			dado['Página'] = item['nomePagina'];
-			dado['Data Criação'] = item['dataCriacao'];
-			dado['Comentários'] = item['comments'];
-			dado['Curtidas'] = item['likes'];
-//			dado['Posts Compartilhados'] = item['sharedPosts'];
-			dado['Compartilhados'] = item['shares'];
-			dado['Reações'] = item['reactions'];
-			dados.push(dado);
-		})
-		
-		callme(dados);
-	};
+//	$scope.exportarPdf = function(){
+//		var dados = [];
+//		$scope.metricas.map(function(item){
+//			var dado = {};
+//			
+////			dado['URL'] = item['link'];
+//			dado['Página'] = item['nomePagina'];
+//			dado['Data Criação'] = item['dataCriacao'];
+//			dado['Comentários'] = item['comments'];
+//			dado['Curtidas'] = item['likes'];
+////			dado['Posts Compartilhados'] = item['sharedPosts'];
+//			dado['Compartilhados'] = item['shares'];
+//			dado['Reações'] = item['reactions'];
+//			dados.push(dado);
+//		})
+//		
+//		callme(dados);
+//	};
 	
-	function callme(dados){
-		var table = dados;
-		var doc = new jsPDF('l','pt','letter',true);
-
-
-		$.each(table, function(i, row){
-			$.each(row, function(j,cell){
-			if(j=="Data Criação"){
-			 doc.cell(1,10,190,20,cell,i);	
-			}
-			else{
-				doc.cell(1,10,90,20,cell,i);
-			}
-			
-			});
-		});
-
-		doc.save('relatorio.pdf');
-		}
+//	function callme(dados){
+//		var table = dados;
+//		var doc = new jsPDF('l','pt','letter',true);
+//
+//
+//		$.each(table, function(i, row){
+//			$.each(row, function(j,cell){
+//			if(j=="Data Criação"){
+//			 doc.cell(1,10,190,20,cell,i);	
+//			}
+//			else{
+//				doc.cell(1,10,90,20,cell,i);
+//			}
+//			
+//			});
+//		});
+//
+//		doc.save('relatorio.pdf');
+//		}
 	
 
 });
