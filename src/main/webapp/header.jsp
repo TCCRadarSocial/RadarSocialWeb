@@ -63,6 +63,12 @@
 	<script src="<c:url value="/resources/js/jsPdf.js"/>" type="text/javascript"></script>
 	
 	
+	<!-- Masonry - Pinterest like grid -->
+  <script src="<c:url value='/resources/js/masonry.pkgd.min.js'/>"></script>
+  <script src="<c:url value='/resources/js/imagesloaded.pkgd.min.js'/>"></script>
+  <script src="<c:url value='/resources/js/angular-masonry-directive.js'/>"></script>
+ 
+	
 	<title>Radar Social</title>
 </head>
 <body ng-app="myApp">

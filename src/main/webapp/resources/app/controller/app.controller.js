@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp',['nvd3','angularUtils.directives.dirPagination']);
+var myApp = angular.module('myApp',['nvd3','angularUtils.directives.dirPagination','masonry']);
 
 myApp.directive("metricsFacebook", function() {
 	  return {

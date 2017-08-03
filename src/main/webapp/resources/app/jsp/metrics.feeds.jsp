@@ -1,6 +1,6 @@
 <%@include file="/header.jsp"%>
 
-<div ng-app="myApp" ng-controller='feedController'>
+<div ng-app="myApp" ng-controller='feedController' style="padding-left:10px">
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<div class='col-lg-12' align="center">
@@ -51,12 +51,38 @@
 			<!-- </div> -->
 		</div>
 	</div>
-	
-	<div masonry load-images="true">
+	<!-- <div masonry='{ "transitionDuration" : "0.4s" , "itemSelector" : ".tile"}' class="tile-wall" width="100%">
+	  <div masonry-tile ng-repeat="metrica in metricas" class="tile">
+	  		<div class="col-xs-12">
+				<img src="{{metrica.imagem}}" style="width:100%" />
+				<label>
+					<a	href="http://{{metrica.link}}" target="_blank">
+						<span ng-if="metrica.name != null">{{metrica.name}}</span>
+						<span ng-if="metrica.name == null" class="textoResumido">{{metrica.link}}</span>
+					</a>
+				</label>
+			</div>
+		</div>
+	 </div>
+	  -->
+	 <div masonry load-images="true">
 	    <div class="masonry-brick" ng-repeat="metrica in metricas">
-	        {{metrica.link }}
+	        <div class="col-xs-12" style="width:200px;">
+				<img src="{{metrica.imagem}}" style="width:100%" />
+				<label>
+					<a	href="http://{{metrica.link}}" target="_blank">Acessar</a>
+					<span ng-if="metrica.retweets > 0">Retweets: {{metrica.retweets}}</span>
+					<span ng-if="metrica.favorites > 0" >Favorites: {{metrica.favorites}}</span>
+					<span ng-if="metrica.likes > 0">Curtidas: {{metrica.likes}}</span>
+					<span ng-if="metrica.comments > 0" >Comentários: {{metrica.comments}}</span>
+					<span ng-if="metrica.shares > 0">Compartilhamentos: {{metrica.shares}}</span>
+					<span ng-if="metrica.reactions > 0" >Reações: {{metrica.reactions}}</span>
+					
+				</label>
+			</div>
 	    </div>
 	</div>
+	 
 	
 	<!-- <table ng-repeat="metrica in metricas">
 	<tr>
