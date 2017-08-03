@@ -1,6 +1,6 @@
 <%@include file="/header.jsp"%>
 
-<div ng-app="myApp" ng-controller='feedController' style="padding-left:10px">
+<div ng-app="myApp" ng-controller='feedController' style="padding-left:20px">
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<div class='col-lg-12' align="center">
@@ -67,17 +67,19 @@
 	  -->
 	 <div masonry load-images="true">
 	    <div class="masonry-brick" ng-repeat="metrica in metricas">
-	        <div class="col-xs-12" style="width:200px;">
+	        <div class="col-xs-12" style="width:200px;padding:10px;">
 				<img src="{{metrica.imagem}}" style="width:100%" />
 				<label>
-					<a	href="http://{{metrica.link}}" target="_blank">Acessar</a>
-					<span ng-if="metrica.retweets > 0">Retweets: {{metrica.retweets}}</span>
-					<span ng-if="metrica.favorites > 0" >Favorites: {{metrica.favorites}}</span>
-					<span ng-if="metrica.likes > 0">Curtidas: {{metrica.likes}}</span>
-					<span ng-if="metrica.comments > 0" >Comentários: {{metrica.comments}}</span>
-					<span ng-if="metrica.shares > 0">Compartilhamentos: {{metrica.shares}}</span>
-					<span ng-if="metrica.reactions > 0" >Reações: {{metrica.reactions}}</span>
-					
+					<a	href="http://{{metrica.link}}" target="_blank">Acessar<br></a>
+					<span ng-if="metrica.nomePagina != ''">Página: {{metrica.nomePagina}}<br></span>
+					<span ng-if="metrica.nomeTwitter != ''" >Twitter: {{metrica.nomeTwitter}}<br></span>
+					<span ng-if="metrica.retweets > 0">Retweets: {{metrica.retweets}}<br></span>
+					<span ng-if="metrica.favorites > 0" >Favorites: {{metrica.favorites}}<br></span>
+					<span ng-if="metrica.likes > 0">Curtidas: {{metrica.likes}}<br></span>
+					<span ng-if="metrica.comments > 0" >Comentários: {{metrica.comments}}<br></span>
+					<span ng-if="metrica.shares > 0">Compartilhamentos: {{metrica.shares}}<br></span>
+					<span ng-if="metrica.reactions > 0" >Reações: {{metrica.reactions}}<br></span>
+					<span>Criado em: {{metrica.dataCriacao}}<br></span>
 				</label>
 			</div>
 	    </div>
