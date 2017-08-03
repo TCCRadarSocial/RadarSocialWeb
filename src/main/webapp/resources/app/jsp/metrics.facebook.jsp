@@ -1,5 +1,13 @@
 <%@include file="/header.jsp"%>
+<style>
+.reticencias {
+  max-width: 190px; /* Tamanho */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap
+}
 
+</style>
 <div ng-app="myApp" ng-controller='facebookController'>
 	<div class="panel panel-default">
 		<div class="panel-body">
@@ -70,7 +78,7 @@
 						<button type="button" class="btn btn-default"
 							ng-click="exportarPdf()" ng-show="metricas.length > 0">
 							<span class="fa fa-file-pdf-o"></span>
-						</button> <a href="" ng-click="sortBy('groupBy')"> URL <span
+						</button> <a href="" ng-click="sortBy('mensagem')"> Mensagem <span
 							ng-show="sortType == 'groupBy'" class="fa fa-caret-down"></span></a></th>
 					<th><a href="" ng-click="sortBy('nomePagina')"> Página <span
 							ng-show="sortType == 'nomePagina'" class="fa fa-caret-down"></span>
@@ -102,14 +110,13 @@
 				<tr
 					dir-paginate="metrica in metricas|orderBy:sortType:reverse|itemsPerPage:10 "
 					current-page="currentPage">
-					<td title="{{ metrica.link }}"><span
+					<td title="{{ metrica.mensagem }}" class="reticencias"><span
 						class="glyphicon glyphicon-filter"
 						ng-click="filtrarURL(metrica.link)"></span> <i
 						class="fa fa-external-link" aria-hidden="true"
 						ng-click="abrirLink(metrica.link)"></i> <a ng-href=""
 						data-toggle="modal" data-target="#modalFbAnalytics"
-						ng-click="defineModal(metrica.groupBy); buscaModalFbAnalytics();">{{
-							metrica.link }}</a></td>
+						ng-click="defineModal(metrica.groupBy); buscaModalFbAnalytics();"></a>{{metrica.mensagem}}</td>
 					<td>{{ metrica.nomePagina }}</td>
 					<td>{{ metrica.dataCriacao}}</td>
 					<td>{{ metrica.comments.toLocaleString("pt-br") }}</td>

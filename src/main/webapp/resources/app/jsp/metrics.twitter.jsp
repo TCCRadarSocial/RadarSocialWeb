@@ -1,5 +1,12 @@
 <%@include file="/header.jsp"%>
-
+<style>
+.reticencias {
+  max-width: 190px; /* Tamanho */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap
+}
+</style>
 <div ng-app="myApp" ng-controller='twitterController'>
 	<div class="panel panel-default">
 		<div class="panel-body">
@@ -75,13 +82,13 @@
 					<th><a href="" ng-click="sortBy('nomeTwitter')"> Twitter <span
 							ng-show="sortType == 'nomeTwitter'" class="fa fa-caret-down"></span>
 					</a></th>
+					<th><a href="" ng-click="sortBy('texto')"> Tweet
+							<span ng-show="sortType == 'texto'" class="fa fa-caret-down"></span>
+					</a></th>
 					<th><a href="" ng-click="sortBy('dataCriacao')" title="Data Criação">
 							Data criação <span ng-show="sortType == 'dataCriacao'"
 							class="fa fa-caret-down"></span>
 					</a></th> 
-					<th><a href="" ng-click="sortBy('texto')"> Tweet
-							<span ng-show="sortType == 'texto'" class="fa fa-caret-down"></span>
-					</a></th>
 					<th><a href="" ng-click="sortBy('retweets')"> Retweets
 							<span ng-show="sortType == 'retweets'" class="fa fa-caret-down"></span>
 					</a></th>
@@ -115,8 +122,8 @@
 						ng-click="defineModal(metrica.groupBy); buscaModalFbAnalytics();">{{
 							metrica.link }}</a></td>
 					<td>{{ metrica.nomeTwitter }}</td>
+					<td title="{{ metrica.texto }}" class="reticencias">{{ metrica.texto }}</td>
 					<td>{{ metrica.dataCriacao}}</td>
-					<td>{{ metrica.texto }}</td>
 					<td>{{ metrica.retweets.toLocaleString("pt-br") }}</td>
 					<td>{{ metrica.favorites.toLocaleString("pt-br") }}</td>
 					<!-- <td>{{ metrica.sharedPosts.toLocaleString("pt-br") }}</td> -->

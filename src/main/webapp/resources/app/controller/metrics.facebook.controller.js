@@ -258,6 +258,7 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 				$scope.metricas.push({
 					link : metric.link,
 					nomePagina: metric.nomePagina,
+					mensagem : metric.mensagem,
 					comments: metric.comments,
 					likes: metric.likes,
 					shares: metric.shares,
@@ -362,6 +363,7 @@ angular.module('myApp').controller('facebookController', function($scope,$http,$
 			var dado = {};
 			
 			dado['URL'] = item['link'];
+			dado['Mensagem'] = item['mensagem'];
 			dado['Página'] = item['nomePagina'];
 			dado['Data Criação'] = item['dataCriacao'];
 			dado['Comentários'] = item['comments'];

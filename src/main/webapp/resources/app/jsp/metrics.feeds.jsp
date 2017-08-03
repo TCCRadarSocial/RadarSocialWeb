@@ -67,7 +67,7 @@
 	  -->
 	 <div masonry load-images="true">
 	    <div class="masonry-brick" ng-repeat="metrica in metricas">
-	        <div class="col-xs-12" style="width:200px;padding:10px;">
+	        <div class="col-xs-12" style="width:200px;padding:10px;box-shadow:5px 5px 5px #888888;">
 				<img src="{{metrica.imagem}}" style="width:100%" />
 				<label>
 					<a	href="http://{{metrica.link}}" target="_blank">Acessar<br></a>
