@@ -1,8 +1,8 @@
 <%@include file="/header.jsp"%>
 <%@include file="/navbar.jsp"%>
 <div class="row" ng-controller="AppCtrl">
-
-	<ul class="nav nav-tabs" role="tablist" id="submenu">
+	<div>
+	<ul class="nav nav-tabs" role="tablist" id="submenu" class="col-xs-12">
 
 		<li role="presentation" class="active"><a href="#feed"
 			aria-controls="home" role="tab" data-toggle="tab"
@@ -24,22 +24,22 @@
 		</a></li>
 
 	</ul>
-
+	</div>
 	<!-- Feeds -->
 
 	<div metrics-feeds ng-if="selectedTab == 'feed'"
 		infinite-scroll="infiniteScroll()" infinite-scroll-distance="0"
-		style="min-height: 1300px; position: absolute; margin-top: 70px; width: 95%"></div>
+		style="min-height: 1300px; position: absolute; margin-top: 10px;" class="col-xs-12"></div>
 
 	<!-- Facebook -->
 
 	<div metrics-facebook ng-if="selectedTab == 'facebook'"
-		class="col-xs-12" style="margin-top: 70px;"></div>
+		class="col-xs-12" style="margin-top: 10px;"></div>
 
 	<!-- Twitter -->
 
 	<div metrics-twitter ng-if="selectedTab == 'twitter'"
-		class="col-xs-12" style="margin-top: 70px;"></div>
+		class="col-xs-12" style="margin-top: 10px;"></div>
 </div>
 
 

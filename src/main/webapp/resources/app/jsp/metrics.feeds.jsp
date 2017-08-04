@@ -7,10 +7,10 @@
   white-space: nowrap
 }
 </style>
-<div ng-app="myApp" ng-controller='feedController' style="padding-left:20px">
+<div ng-app="myApp" ng-controller='feedController' style="padding-left:20px" class="col-lg-12 col-md-12 col-sm-12">
 	<div class="panel panel-default">
 		<div class="panel-body">
-			<div class='col-lg-12' align="center">
+			<div class='col-lg-12' align="center" style="margin-bottom:25px;">
 				<Strong>Filtros:</Strong> <br> <span
 					ng-if="labelDataInicial != ''">Data Inicial:
 					{{labelDataInicial}} |</span> 
@@ -19,43 +19,74 @@
 					 ng-if="dataInicialAnterior !='' && dataFinalAnterior != ''" 
 					 ng-click="RedefinirData()">Redefinir Filtro</button> 
 					|</span>
-					<span ng-if="labelLink != ''">Link:
-					{{labelLink}} <button type="button" ng-if="link != ''" class="btn btn-primary" 
-					ng-click="RedefinirLink()">Redefinir Filtro</button>|</span> 
 					<span ng-if="labelPortais != ''">Portais:
 					{{labelPortais}}</span> 
 					<button type="button" class="btn btn-primary" ng-click="RedefinirPortal()" ng-if="portal != ''">Redefinir Filtro</button>
 					<br>
 			</div>
-			
-			<!-- <div class="col-lg-12" align="center"> -->
-			
-				<div class='col-sm-3'>
-					Data Inicial:
-					<div class='input-group date' id='datetimepicker1'
-						data-ng-model="dataInicial">
-						<input type='text' class="form-control" id="dataInicial" /> <span
-							class="input-group-addon"> <span
-							class="glyphicon glyphicon-calendar"></span>
-						</span>
+			<div>
+			<div class="col-lg-10">
+				<div class="col-lg-2" >
+				Rede Social:
+					<div class="radio">
+					  <label><input type="radio" name="ambosOption" checked>Ambos</label>
+					</div>
+					<div class="radio">
+					  <label><input type="radio" name="facebookOption">Facebook</label>
+					</div>
+					<div class="radio">
+					  <label><input type="radio" name="twitterOption">Twitter</label>
 					</div>
 				</div>
-				<div class='col-sm-3'>
-					Data Final:
-					<div class='input-group date' id='datetimepicker2'
-						data-ng-model="dataFinal">
-						<input type='text' class="form-control" id="dataFinal"/> <span
-							class="input-group-addon"> <span
-							class="glyphicon glyphicon-calendar"></span>
-						</span>
+				<div class="form-group col-lg-2">
+				  <label for="portais">Portais:</label>
+				  <select class="form-control" id="portais">
+				    <option>1</option>
+				    <option>2</option>
+				    <option>3</option>
+				    <option>4</option>
+				  </select>
+				</div>
+				<div class="col-lg-2" >
+					Data:
+					<div class="radio">
+					  <label><input type="radio" name="gravacaoOption" checked>Gravação</label>
+					</div>
+					<div class="radio">
+					  <label><input type="radio" name="criacaoOption">Criação</label>
 					</div>
 				</div>
-				
-				<button type="button" class="btn btn-primary" ng-click="buscar()" id="botaoBuscar">
-					<span class="glyphicon glyphicon-search"></span> Buscar
-				</button>
+				<div class="col-sm-3">
+					<div class='col-sm-12'>
+						Data Inicial:
+						<div class='input-group date' id='datetimepicker1'
+							data-ng-model="dataInicial">
+							<input type='text' class="form-control" id="dataInicial" /> <span
+								class="input-group-addon"> <span
+								class="glyphicon glyphicon-calendar"></span>
+							</span>
+						</div>
+					</div>
+					<br><br><br>
+					<div class='col-sm-12'>
+						Data Final:
+						<div class='input-group date' id='datetimepicker2'
+							data-ng-model="dataFinal">
+							<input type='text' class="form-control" id="dataFinal"/> <span
+								class="input-group-addon"> <span
+								class="glyphicon glyphicon-calendar"></span>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+				<div class="col-lg-12" style="text-align:center;margin-top:15px;">
+					<button type="button" class="btn btn-primary" ng-click="buscar()" id="botaoBuscar">
+						<span class="glyphicon glyphicon-search"></span> Buscar
+					</button>
+				</div>
 		
-			<!-- </div> -->
+			</div> 
 		</div>
 	</div>
 	<!-- <div masonry='{ "transitionDuration" : "0.4s" , "itemSelector" : ".tile"}' class="tile-wall" width="100%">
@@ -77,14 +108,16 @@
 	    <div class="masonry-brick" ng-repeat="metrica in metricas">
 	        <div class="col-xs-12" style="width:200px;padding:10px;box-shadow:2px 2px 2px 2px #888888;margin:13px;">
 	        	<div style="text-align:right;">
-	        		<span>Criado em: {{metrica.dataCriacao}}<br></span>
+	        		<span><strong style="font-size:11px">Criado em: {{metrica.dataCriacao}}</strong></span>
 	        	</div>
 				<div  ng-if="metrica.imagem != ''">
 					<img src="{{metrica.imagem}}" style="width:100%" />
 				</div>
-				<label>
 					<div>
-						<span class="reticencias"><a href="http://{{metrica.link}}"  target="_blank" title="{{metrica.mensagem}}{{metrica.texto}}">{{metrica.mensagem | limitTo:22}}{{metrica.texto | limitTo:22}}</a></span>
+						<a href="http://{{metrica.link}}"  target="_blank" title="{{metrica.mensagem}}{{metrica.texto}}">
+							<span class="reticencias" ng-if="metrica.imagem != ''">{{metrica.mensagem | limitTo:25}}{{metrica.texto | limitTo:25}}...</span>
+							<span ng-if="metrica.imagem == ''">{{metrica.mensagem}}{{metrica.texto}}</span>
+						</a>
 					</div>
 					<span ng-if="metrica.nomePagina != null">Página Facebook: {{metrica.nomePagina}}<br></span>
 					<span ng-if="metrica.nomeTwitter != null" >Twitter: {{metrica.nomeTwitter}}<br></span>
@@ -102,7 +135,6 @@
 					<span ng-if="metrica.shares > 0">Compartilhamentos: {{metrica.shares}}<br></span>
 					<span ng-if="metrica.reactions > 0" >Reações: {{metrica.reactions}}<br></span> -->
 					
-				</label>
 			</div>
 	    </div>
 	</div>
