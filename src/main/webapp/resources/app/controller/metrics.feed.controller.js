@@ -115,6 +115,8 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 				favorites: metric.favorites,
 				retweets: metric.retweets,
 				imagem: metric.imagem,
+				texto : metric.texto,
+				mensagem : metric.mensagem,
 				dataCriacao : data
 			});
 			

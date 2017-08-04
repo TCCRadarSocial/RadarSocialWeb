@@ -1,5 +1,12 @@
 <%@include file="/header.jsp"%>
-
+<style>
+.reticencias {
+  max-width: 180px; /* Tamanho */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap
+}
+</style>
 <div ng-app="myApp" ng-controller='feedController' style="padding-left:20px">
 	<div class="panel panel-default">
 		<div class="panel-body">
@@ -64,22 +71,37 @@
 			</div>
 		</div>
 	 </div>
-	  -->
 	 <div masonry load-images="true">
+	  -->
+	 <div masonry='{ "transitionDuration" : "0.4s" , "itemSelector" : ".tile"}' class="tile-wall" width="100%">
 	    <div class="masonry-brick" ng-repeat="metrica in metricas">
-	        <div class="col-xs-12" style="width:200px;padding:10px;box-shadow:5px 5px 5px #888888;">
-				<img src="{{metrica.imagem}}" style="width:100%" />
+	        <div class="col-xs-12" style="width:200px;padding:10px;box-shadow:2px 2px 2px 2px #888888;margin:13px;">
+	        	<div style="text-align:right;">
+	        		<span>Criado em: {{metrica.dataCriacao}}<br></span>
+	        	</div>
+				<div  ng-if="metrica.imagem != ''">
+					<img src="{{metrica.imagem}}" style="width:100%" />
+				</div>
 				<label>
-					<a	href="http://{{metrica.link}}" target="_blank">Acessar<br></a>
-					<span ng-if="metrica.nomePagina != ''">Página: {{metrica.nomePagina}}<br></span>
-					<span ng-if="metrica.nomeTwitter != ''" >Twitter: {{metrica.nomeTwitter}}<br></span>
-					<span ng-if="metrica.retweets > 0">Retweets: {{metrica.retweets}}<br></span>
+					<div>
+						<span class="reticencias"><a href="http://{{metrica.link}}"  target="_blank" title="{{metrica.mensagem}}{{metrica.texto}}">{{metrica.mensagem | limitTo:22}}{{metrica.texto | limitTo:22}}</a></span>
+					</div>
+					<span ng-if="metrica.nomePagina != null">Página Facebook: {{metrica.nomePagina}}<br></span>
+					<span ng-if="metrica.nomeTwitter != null" >Twitter: {{metrica.nomeTwitter}}<br></span>
+					<div style="text-align:right;" ng-if="metrica.reactions > 0">
+						<button type="button" class="btn btn-primary"><i class="fa fa-facebook" aria-hidden="true"></i> {{metrica.reactions}}</button>
+					</div>
+					<div style="text-align:right;" ng-if="metrica.retweets > 0">
+						<button type="button" class="btn btn-info"><i class="fa fa-twitter" aria-hidden="true"></i> {{metrica.retweets}}</button>
+					</div>
+					
+					<!-- <span ng-if="metrica.retweets > 0">Retweets: {{metrica.retweets}}<br></span>
 					<span ng-if="metrica.favorites > 0" >Favorites: {{metrica.favorites}}<br></span>
 					<span ng-if="metrica.likes > 0">Curtidas: {{metrica.likes}}<br></span>
 					<span ng-if="metrica.comments > 0" >Comentários: {{metrica.comments}}<br></span>
 					<span ng-if="metrica.shares > 0">Compartilhamentos: {{metrica.shares}}<br></span>
-					<span ng-if="metrica.reactions > 0" >Reações: {{metrica.reactions}}<br></span>
-					<span>Criado em: {{metrica.dataCriacao}}<br></span>
+					<span ng-if="metrica.reactions > 0" >Reações: {{metrica.reactions}}<br></span> -->
+					
 				</label>
 			</div>
 	    </div>
