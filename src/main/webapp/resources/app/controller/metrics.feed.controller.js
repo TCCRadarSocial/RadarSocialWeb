@@ -24,6 +24,7 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
         });
     });
 	
+<<<<<<< HEAD
 	
 //	$scope.selecionaPortal = function(portal){
 //		$scope.portal = portal;
@@ -35,11 +36,20 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 			$scope.rede = [];
 			$scope.rede.push("facebook");
 			
+=======
+	$scope.selecionaRede = function(){
+		alert($scope.checkRedeSocial);
+		if($scope.checkRedeSocial == "redeAmbos"){
+			url = '/RadarSocialRegras/facebookTodosPortais';
+>>>>>>> b6c98dd267d4efb4b1875f20346df337e563f9e6
 			carregaPortais();
 			$scope.portaisFacebook = $scope.portais;
 			
 			url = '/RadarSocialRegras/twitterTodosPortais';
+<<<<<<< HEAD
 			$scope.rede.push("twitter");
+=======
+>>>>>>> b6c98dd267d4efb4b1875f20346df337e563f9e6
 			carregaPortais();
 			$scope.portaisTwitter = $scope.portais;
 			
@@ -47,14 +57,20 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 		}
 		else if($scope.checkRedeSocial == "redeFacebook"){
 			url = '/RadarSocialRegras/facebookTodosPortais';
+<<<<<<< HEAD
 			$scope.rede = [];
 			$scope.rede.push("facebook");
+=======
+>>>>>>> b6c98dd267d4efb4b1875f20346df337e563f9e6
 			carregaPortais();
 		}		
 		else if($scope.checkRedeSocial == "redeTwitter"){
 			url = '/RadarSocialRegras/twitterTodosPortais';
+<<<<<<< HEAD
 			$scope.rede = [];
 			$scope.rede.push("twitter");
+=======
+>>>>>>> b6c98dd267d4efb4b1875f20346df337e563f9e6
 			carregaPortais();
 		}
 	}
@@ -197,6 +213,7 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 			name: 'Dia/Mês/Ano'
 	}
 	
+<<<<<<< HEAD
 //	$scope.checkDataGravacao = function(){
 //		
 //		$scope.dataOptionCheck = "gravacao";
@@ -209,6 +226,20 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 //		$scope.dataOption = true;
 //	}
 //	
+=======
+	$scope.checkDataGravacao = function(){
+		
+		$scope.dataOptionCheck = "gravacao";
+		$scope.dataOption = true;
+	}
+	
+	$scope.checkDataCriacao = function(){
+		
+		$scope.dataOptionCheck = "criacao";
+		$scope.dataOption = true;
+	}
+	
+>>>>>>> b6c98dd267d4efb4b1875f20346df337e563f9e6
 	
 	function carregaPortais(){
 		
@@ -230,7 +261,11 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 			
 			
 			data.result.map(function(metric){
+<<<<<<< HEAD
 					$scope.portais.push(metric._id);
+=======
+				$scope.portais.push(metric._id);
+>>>>>>> b6c98dd267d4efb4b1875f20346df337e563f9e6
 			})
 				        		  
 		    });
