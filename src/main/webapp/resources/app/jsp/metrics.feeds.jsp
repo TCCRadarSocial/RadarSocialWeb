@@ -29,36 +29,35 @@
 				<div class="col-lg-2" >
 				Rede Social:
 					<div class="radio">
-					  <label><input type="radio" name="ambosOption" checked>Ambos</label>
+					  <label><input type="radio" name="option" ng-model="checkRedeSocial" value="redeAmbos" ng-click="selecionaRede()">Ambos</label>
 					</div>
 					<div class="radio">
-					  <label><input type="radio" name="facebookOption">Facebook</label>
+					  <label><input type="radio" name="option" ng-model="checkRedeSocial" value="redeFacebook" ng-click="selecionaRede()">Facebook</label>
 					</div>
 					<div class="radio">
-					  <label><input type="radio" name="twitterOption">Twitter</label>
+					  <label><input type="radio" name="option"  ng-model="checkRedeSocial" value="redeTwitter" ng-click="selecionaRede()">Twitter</label>
 					</div>
 				</div>
 				<div class="form-group col-lg-2">
 				  <label for="portais">Portais:</label>
-				  <select class="form-control" id="portais">
-				    <option>1</option>
-				    <option>2</option>
-				    <option>3</option>
-				    <option>4</option>
+				  <select class="form-control" id="portais" ng-model="opcaoPortal">
+				    <option ng-repeat="p in portais" ng-if="p != '' && p != []" value="{{p}}">{{p}}</option>
 				  </select>
 				</div>
-				<div class="col-lg-2" >
+				<!-- <div class="col-lg-2" >
 					Data:
 					<div class="radio">
-					  <label><input type="radio" name="gravacaoOption" checked>Gravação</label>
+					  <label><input type="radio" name="dataOption" ng-model="dataOption" value="gravacao">Gravação</label>
 					</div>
 					<div class="radio">
-					  <label><input type="radio" name="criacaoOption">Criação</label>
+					  <label><input type="radio" name="dataOption" ng-model="dataOption" value="criacao">Criação</label>
 					</div>
 				</div>
+				 -->
 				<div class="col-sm-3">
+				Data Criação:
 					<div class='col-sm-12'>
-						Data Inicial:
+						Inicial:
 						<div class='input-group date' id='datetimepicker1'
 							data-ng-model="dataInicial">
 							<input type='text' class="form-control" id="dataInicial" /> <span
@@ -69,7 +68,7 @@
 					</div>
 					<br><br><br>
 					<div class='col-sm-12'>
-						Data Final:
+						Final:
 						<div class='input-group date' id='datetimepicker2'
 							data-ng-model="dataFinal">
 							<input type='text' class="form-control" id="dataFinal"/> <span
