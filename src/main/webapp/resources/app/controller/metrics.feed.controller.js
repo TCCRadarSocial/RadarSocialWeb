@@ -65,7 +65,7 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 	$rootScope.buscar = function(){
 
 
-		if(angular.element(document.querySelector('#dataInicial')).val() != "" && angular.element(document.querySelector('#dataFinal')).val() != ""){
+//		if(angular.element(document.querySelector('#dataInicial')).val() != "" && angular.element(document.querySelector('#dataFinal')).val() != ""){
 			
 			$scope.dataInicial = angular.element(document.querySelector('#dataInicial')).val();
 			$scope.dataInicial =   moment($scope.dataInicial, 'DD/MM/YYYY - HH:mm:ss').format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
@@ -96,9 +96,9 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 					}
 				}
 			}
-		}else{
-			alert("Selecione as datas corretamente");
-		}
+//		}else{
+//			alert("Selecione as datas corretamente");
+//		}
 	}
 	
 	$scope.RedefinirData = function(){
@@ -125,10 +125,12 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 	function carregaTudo(){
 		if($scope.opcaoPortal != undefined)
 			$scope.portal=$scope.opcaoPortal;
+		else
+			$scope.portal = "";
 		
 
-//		$scope.dataInicial = moment($scope.dataInicial).add(3, 'hour');
-//		$scope.dataFinal = moment($scope.dataFinal).add(3, 'hour');
+//		$scope.dataInicial = moment($scope.dataInicial).subtract(3, 'hour');
+//		$scope.dataFinal = moment($scope.dataFinal).subtract(3, 'hour');
 		
 		
 		$scope.dataInicial = moment().subtract(1, 'days').utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
