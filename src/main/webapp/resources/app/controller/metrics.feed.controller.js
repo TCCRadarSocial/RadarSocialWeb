@@ -1,8 +1,9 @@
 //angular.module('myApp', []).controller('facebookController', ['$scope',function($scope){
 angular.module('myApp').controller('feedController', function($scope,$http,$q,$rootScope) {
 	
-	$scope.dataInicial = moment().subtract(1, 'days').utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
-	$scope.dataFinal = moment().utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
+	$scope.dataInicial = moment().subtract(1, 'days').format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
+	$scope.dataFinal = moment().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
+	
 	
 	$scope.redeSocial = "";
 	$scope.portal = "";
@@ -24,13 +25,22 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
         });
     });
 	
+	
+//	$scope.selecionaPortal = function(portal){
+//		$scope.portal = portal;
+//	}
 	$scope.selecionaRede = function(){
+//		alert($scope.checkRedeSocial);
 		if($scope.checkRedeSocial == "redeAmbos"){
 			url = '/RadarSocialRegras/facebookTodosPortais';
+			$scope.rede = [];
+			$scope.rede.push("facebook");
+			
 			carregaPortais();
 			$scope.portaisFacebook = $scope.portais;
 			
 			url = '/RadarSocialRegras/twitterTodosPortais';
+			$scope.rede.push("twitter");
 			carregaPortais();
 			$scope.portaisTwitter = $scope.portais;
 			
@@ -38,10 +48,14 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 		}
 		else if($scope.checkRedeSocial == "redeFacebook"){
 			url = '/RadarSocialRegras/facebookTodosPortais';
+			$scope.rede = [];
+			$scope.rede.push("facebook");
 			carregaPortais();
 		}		
 		else if($scope.checkRedeSocial == "redeTwitter"){
 			url = '/RadarSocialRegras/twitterTodosPortais';
+			$scope.rede = [];
+			$scope.rede.push("twitter");
 			carregaPortais();
 		}
 	}
@@ -52,22 +66,40 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 	$rootScope.buscar = function(){
 
 
-		if(angular.element(document.querySelector('#dataInicial')).val() != "" && angular.element(document.querySelector('#dataFinal')).val() != ""){
+//		if(angular.element(document.querySelector('#dataInicial')).val() != "" && angular.element(document.querySelector('#dataFinal')).val() != ""){
 			
 			$scope.dataInicial = angular.element(document.querySelector('#dataInicial')).val();
-			$scope.dataInicial =   moment($scope.dataInicial, 'DD/MM/YYYY - HH:mm:ss').utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
+			$scope.dataInicial =   moment($scope.dataInicial, 'DD/MM/YYYY - HH:mm:ss').format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
 			$scope.dataFinal = angular.element(document.querySelector('#dataFinal')).val();
-			$scope.dataFinal =   moment($scope.dataFinal, 'DD/MM/YYYY - HH:mm:ss').utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
+			$scope.dataFinal =   moment($scope.dataFinal, 'DD/MM/YYYY - HH:mm:ss').format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
+			
+
 			
 			if($scope.dataInicial > $scope.dataFinal){
 				alert("Selecione as datas corretamente");
 			}else{
 				$scope.portal = "";
-				carregaTudo();
+				
+				if($scope.rede.length == 2){
+					$scope.redeSocial = "Facebook";
+					carregaTudo();					
+					
+					$scope.redeSocial = "Twitter";
+					carregaTudo();
+				}else{
+					if($scope.rede[0] == "facebook"){
+						$scope.redeSocial = "Facebook";
+						carregaTudo();
+					
+					}else if($scope.rede[0] == "twitter"){
+						$scope.redeSocial = "Twitter";
+						carregaTudo();
+					}
+				}
 			}
-		}else{
-			alert("Selecione as datas corretamente");
-		}
+//		}else{
+//			alert("Selecione as datas corretamente");
+//		}
 	}
 	
 	$scope.RedefinirData = function(){
@@ -92,9 +124,19 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 	carregaTudo();
 	
 	function carregaTudo(){
-//		carregaGraficoLinha();
-//		carregaTabela();
-//		carregaGraficoPizza();
+		if($scope.opcaoPortal != undefined)
+			$scope.portal=$scope.opcaoPortal;
+		else
+			$scope.portal = "";
+		
+
+//		$scope.dataInicial = moment($scope.dataInicial).subtract(3, 'hour');
+//		$scope.dataFinal = moment($scope.dataFinal).subtract(3, 'hour');
+		
+		
+		$scope.dataInicial = moment().subtract(1, 'days').utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
+		$scope.dataFinal = moment().utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
+		
 		carregaFeeds();
 		$scope.labelDataInicial = moment($scope.dataInicial, 'YYYY-MM-DDTHH:mm:ss.000Z').format('DD/MM/YYYY - HH:mm:ss');
 		$scope.labelDataFinal = moment($scope.dataFinal, 'YYYY-MM-DDTHH:mm:ss.000Z').format('DD/MM/YYYY - HH:mm:ss');
@@ -158,18 +200,18 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 			name: 'Dia/Mês/Ano'
 	}
 	
-	$scope.checkDataGravacao = function(){
-		
-		$scope.dataOptionCheck = "gravacao";
-		$scope.dataOption = true;
-	}
-	
-	$scope.checkDataCriacao = function(){
-		
-		$scope.dataOptionCheck = "criacao";
-		$scope.dataOption = true;
-	}
-	
+//	$scope.checkDataGravacao = function(){
+//		
+//		$scope.dataOptionCheck = "gravacao";
+//		$scope.dataOption = true;
+//	}
+//	
+//	$scope.checkDataCriacao = function(){
+//		
+//		$scope.dataOptionCheck = "criacao";
+//		$scope.dataOption = true;
+//	}
+//	
 	
 	function carregaPortais(){
 		
@@ -191,7 +233,7 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 			
 			
 			data.result.map(function(metric){
-				$scope.portais.push(metric._id);
+					$scope.portais.push(metric._id);
 			})
 				        		  
 		    });

@@ -29,7 +29,7 @@
 				<div class="col-lg-2" >
 				Rede Social:
 					<div class="radio">
-					  <label><input type="radio" name="option" ng-model="checkRedeSocial" value="redeAmbos" ng-click="selecionaRede()" checked>Ambos</label>
+					  <label><input type="radio" name="option" ng-model="checkRedeSocial" value="redeAmbos" ng-click="selecionaRede()">Ambos</label>
 					</div>
 					<div class="radio">
 					  <label><input type="radio" name="option" ng-model="checkRedeSocial" value="redeFacebook" ng-click="selecionaRede()">Facebook</label>
@@ -40,22 +40,24 @@
 				</div>
 				<div class="form-group col-lg-2">
 				  <label for="portais">Portais:</label>
-				  <select class="form-control" id="portais" ng-options="p for p in portais">
-				    	<!-- <option ng-repeat="p in portais" ng-if="p != '' && p != []" value="{{p}}">{{p}}</option> -->
+				  <select class="form-control" id="portais" ng-model="opcaoPortal">
+				    <option ng-repeat="p in portais" ng-if="p != '' && p != []" value="{{p}}">{{p}}</option>
 				  </select>
 				</div>
-				<div class="col-lg-2" >
+				<!-- <div class="col-lg-2" >
 					Data:
 					<div class="radio">
-					  <label><input type="radio" name="dataOption" ng-model="dataOption" value="gravacao" checked>Gravação</label>
+					  <label><input type="radio" name="dataOption" ng-model="dataOption" value="gravacao">Gravação</label>
 					</div>
 					<div class="radio">
 					  <label><input type="radio" name="dataOption" ng-model="dataOption" value="criacao">Criação</label>
 					</div>
 				</div>
-				<div class="col-sm-3" ng-switch="dataOption" >
-					<div class='col-sm-12' ng-switch-when="criacao">
-						Data Inicial:
+				 -->
+				<div class="col-sm-3">
+				Data Criação:
+					<div class='col-sm-12'>
+						Inicial:
 						<div class='input-group date' id='datetimepicker1'
 							data-ng-model="dataInicial">
 							<input type='text' class="form-control" id="dataInicial" /> <span
@@ -65,8 +67,8 @@
 						</div>
 					</div>
 					<br><br><br>
-					<div class='col-sm-12' ng-switch-when="criacao">
-						Data Final:
+					<div class='col-sm-12'>
+						Final:
 						<div class='input-group date' id='datetimepicker2'
 							data-ng-model="dataFinal">
 							<input type='text' class="form-control" id="dataFinal"/> <span
@@ -119,36 +121,31 @@
 					<span ng-if="metrica.nomePagina != null">Página Facebook: {{metrica.nomePagina}}<br></span>
 					<span ng-if="metrica.nomeTwitter != null" >Twitter: {{metrica.nomeTwitter}}<br></span>
 					<div style="text-align:right;" ng-if="metrica.reactions > 0">
-						<button type="button" class="btn btn-primary"><i class="fa fa-facebook" aria-hidden="true"></i> {{metrica.reactions}}</button>
+						<button type="button" class="btn btn-primary"><i class="fa fa-facebook" aria-hidden="true" data-toggle="modal" data-target="#myModal"></i> {{metrica.reactions}}</button>
 					</div>
 					<div style="text-align:right;" ng-if="metrica.retweets > 0">
-						<button type="button" class="btn btn-info"><i class="fa fa-twitter" aria-hidden="true"></i> {{metrica.retweets}}</button>
-					</div>
-					
-					<!-- <span ng-if="metrica.retweets > 0">Retweets: {{metrica.retweets}}<br></span>
-					<span ng-if="metrica.favorites > 0" >Favorites: {{metrica.favorites}}<br></span>
-					<span ng-if="metrica.likes > 0">Curtidas: {{metrica.likes}}<br></span>
-					<span ng-if="metrica.comments > 0" >Comentários: {{metrica.comments}}<br></span>
-					<span ng-if="metrica.shares > 0">Compartilhamentos: {{metrica.shares}}<br></span>
-					<span ng-if="metrica.reactions > 0" >Reações: {{metrica.reactions}}<br></span> -->
-					
+						<button type="button" class="btn btn-info"><i class="fa fa-twitter" aria-hidden="true" data-toggle="modal" data-target="#myModal"></i> {{metrica.retweets}}</button>
+					</div>					
 			</div>
 	    </div>
 	</div>
-	 
-	
-	<!-- <table ng-repeat="metrica in metricas">
-	<tr>
-	<td>{{metrica.link }}</td>
-					<td>{{ metrica.nomePagina }}</td>
-					<td>{{ metrica.nomeTwitter }}</td>
-					<td>{{ metrica.dataCriacao}}</td>
-					<td>{{ metrica.comments.toLocaleString("pt-br") }}</td>
-					<td>{{ metrica.likes.toLocaleString("pt-br") }}</td>
-					<td>{{ metrica.shares.toLocaleString("pt-br") }}</td>
-					<td>{{ metrica.reactions.toLocaleString("pt-br") }}</td>
-					<td>{{ metrica.favorites.toLocaleString("pt-br") }}</td>
-					<td>{{ metrica.retweets.toLocaleString("pt-br") }}</td>
-	</tr>
-	</table> -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 </div>
