@@ -29,7 +29,7 @@
 				<div class="col-lg-2" >
 				Rede Social:
 					<div class="radio">
-					  <label><input type="radio" name="option" ng-model="checkRedeSocial" value="redeAmbos" ng-click="selecionaRede()">Ambos</label>
+					  <label><input type="radio" name="option" ng-model="checkRedeSocial" value="redeAmbos" ng-click="selecionaRede()" checked>Ambos</label>
 					</div>
 					<div class="radio">
 					  <label><input type="radio" name="option" ng-model="checkRedeSocial" value="redeFacebook" ng-click="selecionaRede()">Facebook</label>
@@ -40,14 +40,14 @@
 				</div>
 				<div class="form-group col-lg-2">
 				  <label for="portais">Portais:</label>
-				  <select class="form-control" id="portais">
-				    <option ng-repeat="p in portais"  ng-if="p != '' && p != []" value="{{p}}">{{p}}</option>
+				  <select class="form-control" id="portais" ng-options="p for p in portais">
+				    	<!-- <option ng-repeat="p in portais" ng-if="p != '' && p != []" value="{{p}}">{{p}}</option> -->
 				  </select>
 				</div>
 				<div class="col-lg-2" >
 					Data:
 					<div class="radio">
-					  <label><input type="radio" name="dataOption" ng-model="dataOption" value="gravacao">Gravação</label>
+					  <label><input type="radio" name="dataOption" ng-model="dataOption" value="gravacao" checked>Gravação</label>
 					</div>
 					<div class="radio">
 					  <label><input type="radio" name="dataOption" ng-model="dataOption" value="criacao">Criação</label>

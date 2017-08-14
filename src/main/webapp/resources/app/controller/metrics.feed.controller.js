@@ -12,6 +12,7 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 	$scope.dataInicialAnterior = "";
     $scope.dataFinalAnterior = "";
     $scope.checkRedeSocial = "redeAmbos";
+//    $scope.portais = [];
     var url = null;
 	
 	$(function () {
@@ -24,7 +25,6 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
     });
 	
 	$scope.selecionaRede = function(){
-		alert($scope.checkRedeSocial);
 		if($scope.checkRedeSocial == "redeAmbos"){
 			url = '/RadarSocialRegras/facebookTodosPortais';
 			carregaPortais();
