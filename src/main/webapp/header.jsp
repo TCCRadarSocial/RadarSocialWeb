@@ -31,7 +31,7 @@
 
 	<!-- angular -->
 	
-	<script src="<c:url value="/resources/js/angular.js"/>" type="text/javascript"></script>
+	<!--<script src="<c:url value="/resources/js/angular.js"/>" type="text/javascript"></script>  -->
 	
 	
 	<!-- nvd3 -->
