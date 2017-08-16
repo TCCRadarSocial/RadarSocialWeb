@@ -2,12 +2,17 @@
 angular.module('myApp').controller('feedController', function($scope,$http,$q,$rootScope) {
 	
 	
-	$scope.modalFace = function(){
+	$scope.modalFace = function(link){
 		$('#myModal').modal();
+		$scope.link = link;
+		carregaGraficoLinhaFacebook();
+		
 	}
 	
-	$scope.modalTwitter = function(){
+	$scope.modalTwitter = function(link){
 		$('#myModal').modal();
+		$scope.link = link;
+		carregaGraficoLinhaTwitter();
 	}
 
 	
@@ -251,6 +256,168 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 		    });
 		    
 	}
+	
+	
+	function carregaGraficoLinhaFacebook(){
+
+		var comments = [], 
+        	likes = [], 
+        	shares = [],
+        	reactions = [],
+        	totalMetrics = [];
+		
+		var baseQuery = '[{"link":"'+$scope.link+'"}]';
+		var query = JSON.parse( baseQuery );
+		var deferred = $q.defer();
+			
+		var method = 'POST';
+		var url = '/RadarSocialRegras/feedSearchPublicacao';
+		var req = {
+			method : method,
+			url : url,
+			data: query
+			}
+
+		$http(req).success(function(data, status, headers, config){ 
+			deferred.resolve(data);
+		}).error(deferred.resolve);
+
+		deferred.promise.then(function(data) {
+			
+			data.map(function(metric){
+				
+					comments.push({x: moment(metric.dataGravacao.$date).unix(), y: metric.comments}),
+					likes.push({x: moment(metric.dataGravacao.$date).unix(), y: metric.likes}), 
+					shares.push({x: moment(metric.dataGravacao.$date).unix(), y: metric.shares}); 
+					reactions.push({x: moment(metric.dataGravacao.$date).unix(), y: metric.reactions}); 
+					$scope.mensagem = metric.mensagem;
+					$scope.link = metric.link;
+					$scope.imagem = metric.imagem;
+					
+			
+			})
+			
+			$scope.data = [ 
+			               { values: comments, key: 'Comentários', color: '#7777ff', area: false },
+			               { values: likes, key: 'Curtidas', color: '#2ca02c' },
+			               { values: shares, key: 'Compartilhados', color: '#ff00bf' },
+			               { values: reactions, key: 'Reações', color: '#ff0000' }
+	            ];
+         });
+		
+	}
+	
+	
+	function carregaGraficoLinhaTwitter(){
+
+		var retweets = [], 
+    	favorites = [], 
+    	link = [],
+//    	texto = [],
+    	totalMetrics = [];
+
+		var baseQuery = '[{"link":"'+$scope.link+'"}]';
+		var query = JSON.parse( baseQuery );
+		var deferred = $q.defer();
+			
+		var method = 'POST';
+		var url = '/RadarSocialRegras/feedSearchPublicacao';
+		var req = {
+			method : method,
+			url : url,
+			data: query
+			}
+
+		$http(req).success(function(data, status, headers, config){ 
+			deferred.resolve(data);
+		}).error(deferred.resolve);
+
+		deferred.promise.then(function(data) {
+			
+			data.map(function(metric){
+				
+				retweets.push({x: moment(metric.dataGravacao.$date).unix(), y: metric.retweets}),
+				favorites.push({x: moment(metric.dataGravacao.$date).unix(), y: metric.favorites}) 
+				$scope.mensagem = metric.texto;
+				$scope.link = metric.link;
+				$scope.imagem = metric.imagem;
+		
+		})
+		
+		$scope.data = [ 
+		               { values: retweets, key: 'Retweets', color: '#7777ff', area: false },
+		               { values: favorites, key: 'Favorites', color: '#2ca02c' }
+            ];
+         });
+		
+	}
+	
+	/* Chart options */
+	$scope.options = {
+		chart : {
+			type : 'lineWithFocusChart',
+			height : 450,
+			margin : {
+				top : 20,
+				right : 60,
+				bottom : 40,
+				left : 70
+			},
+			x : function(d) {
+				return d.x;
+			},
+			y : function(d) {
+				return d.y;
+			},
+			useInteractiveGuideline : true,
+			focusEnable: true,
+			dispatch : {
+				stateChange : function(e) {
+					console.log("stateChange");
+				},
+				changeState : function(e) {
+					console.log("changeState");
+				},
+				tooltipShow : function(e) {
+					console.log("tooltipShow");
+				},
+				tooltipHide : function(e) {
+					console.log("tooltipHide");
+				}
+			},
+			noData: 'Não há dados a serem exibidos',
+			xAxis : {
+				axisLabel : 'Data/Hora',
+				tickFormat : function(d) {
+					return moment.unix(d).format($scope.dateFormat.format);
+					
+				},
+				ticks : 1,
+				axisLabelDistance : 100
+			},
+			yAxis : {
+				tickFormat : function(d) {
+					return d.toLocaleString("pt-br");
+				},
+				axisLabelDistance : 100000
+			},
+			x2Axis : {
+				tickFormat : function(d) {
+					return moment.unix(d).format($scope.dateFormat.format);
+				},
+				ticks : 1,
+				axisLabelDistance : 100
+			},
+			y2Axis : {},
+			legend :{
+				dispatch: {},
+				width: 500,
+				height: 20,
+				align: true,
+				rightAlign: true
+			}
+		}
+	};
 	
 
 });

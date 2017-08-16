@@ -121,10 +121,10 @@
 					<span ng-if="metrica.nomePagina != null">Página Facebook: {{metrica.nomePagina}}<br></span>
 					<span ng-if="metrica.nomeTwitter != null" >Twitter: {{metrica.nomeTwitter}}<br></span>
 					<div style="text-align:right;" ng-if="metrica.reactions > 0">
-						<button type="button" class="btn btn-primary" data-toggle="modal" id="btnFace" ng-click="modalFace()"><i class="fa fa-facebook" aria-hidden="true" ></i> {{metrica.reactions}}</button>
+						<button type="button" class="btn btn-primary" data-toggle="modal" id="btnFace" ng-click="modalFace(metrica.link)"><i class="fa fa-facebook" aria-hidden="true" ></i> {{metrica.reactions}}</button>
 					</div>
 					<div style="text-align:right;" ng-if="metrica.retweets > 0">
-						<button type="button" class="btn btn-info" data-toggle="modal" id="btnTwitter" ng-click="modalTwitter()"><i class="fa fa-twitter" aria-hidden="true" ></i> {{metrica.retweets}}</button>
+						<button type="button" class="btn btn-info" data-toggle="modal" id="btnTwitter" ng-click="modalTwitter(metrica.link)"><i class="fa fa-twitter" aria-hidden="true" ></i> {{metrica.retweets}}</button>
 					</div>					
 			</div>
 	    </div>
@@ -136,10 +136,15 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
+        <h5 class="modal-title">
+        
+        <img src="{{imagem}}" width="100px"/>
+        <a href="{{link}}" target="_blank">{{mensagem}}</a>
+        
+        </h5>
       </div>
       <div class="modal-body">
-        <p>Some text in the modal.</p>
+		<nvd3 options='options' data='data'></nvd3>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
