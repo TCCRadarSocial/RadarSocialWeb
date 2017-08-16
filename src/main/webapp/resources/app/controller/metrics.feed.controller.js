@@ -1,6 +1,18 @@
 //angular.module('myApp', []).controller('facebookController', ['$scope',function($scope){
 angular.module('myApp').controller('feedController', function($scope,$http,$q,$rootScope) {
 	
+	
+	$scope.modalFace = function(){
+		$('#myModal').modal();
+	}
+	
+	$scope.modalTwitter = function(){
+		$('#myModal').modal();
+	}
+
+	
+	  
+	
 	$scope.dataInicial = moment().subtract(1, 'days').format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
 	$scope.dataFinal = moment().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
 	

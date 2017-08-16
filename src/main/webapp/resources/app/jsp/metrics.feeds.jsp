@@ -121,10 +121,10 @@
 					<span ng-if="metrica.nomePagina != null">Página Facebook: {{metrica.nomePagina}}<br></span>
 					<span ng-if="metrica.nomeTwitter != null" >Twitter: {{metrica.nomeTwitter}}<br></span>
 					<div style="text-align:right;" ng-if="metrica.reactions > 0">
-						<button type="button" class="btn btn-primary"><i class="fa fa-facebook" aria-hidden="true" data-toggle="modal" data-target="#myModal"></i> {{metrica.reactions}}</button>
+						<button type="button" class="btn btn-primary" data-toggle="modal" id="btnFace" ng-click="modalFace()"><i class="fa fa-facebook" aria-hidden="true" ></i> {{metrica.reactions}}</button>
 					</div>
 					<div style="text-align:right;" ng-if="metrica.retweets > 0">
-						<button type="button" class="btn btn-info"><i class="fa fa-twitter" aria-hidden="true" data-toggle="modal" data-target="#myModal"></i> {{metrica.retweets}}</button>
+						<button type="button" class="btn btn-info" data-toggle="modal" id="btnTwitter" ng-click="modalTwitter()"><i class="fa fa-twitter" aria-hidden="true" ></i> {{metrica.retweets}}</button>
 					</div>					
 			</div>
 	    </div>
