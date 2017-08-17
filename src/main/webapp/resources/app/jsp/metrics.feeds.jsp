@@ -144,7 +144,7 @@
         </h5>
       </div>
       <div class="modal-body">
-		<nvd3 options='options' data='data'></nvd3>
+		<nvd3 options='options' data='data' api="api"></nvd3>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

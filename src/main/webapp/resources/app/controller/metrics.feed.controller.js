@@ -6,6 +6,8 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 		$('#myModal').modal();
 		$scope.link = link;
 		carregaGraficoLinhaFacebook();
+		setTimeout(function(){ $scope.api.refresh(); }, 500);
+		
 		
 	}
 	
@@ -13,6 +15,7 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 		$('#myModal').modal();
 		$scope.link = link;
 		carregaGraficoLinhaTwitter();
+		setTimeout(function(){ $scope.api.refresh(); }, 500);
 	}
 
 	
