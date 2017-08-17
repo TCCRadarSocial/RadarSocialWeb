@@ -423,4 +423,8 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 	};
 	
 
-});
+}).filter('urlencode', function() {
+  return function(input) {
+    return encodeURI(input);
+  }
+});;

@@ -139,7 +139,8 @@
         <h5 class="modal-title">
         
         <img src="{{imagem}}" width="100px"/>
-        <a href="{{link}}" target="_blank">{{mensagem}}</a>
+        <a href="{{link}}" target="_blank">{{mensagem | urlencode}}</a>
+        
         
         </h5>
       </div>
