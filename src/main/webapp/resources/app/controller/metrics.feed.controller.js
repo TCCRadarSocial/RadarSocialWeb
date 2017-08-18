@@ -33,6 +33,7 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 	$scope.dataInicialAnterior = "";
     $scope.dataFinalAnterior = "";
     $scope.checkRedeSocial = "redeAmbos";
+    $scope.ordenacao = "dataCriacao";
 //    $scope.portais = [];
     var url = null;
 	
@@ -173,7 +174,7 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 	
     $scope.metricas = [];
 	
-    var baseQuery = '[{"redeSocial":"'+$scope.redeSocial+'","portal": "'+$scope.portal+'","dataInicial": "'+$scope.dataInicial+'","dataFinal": "'+$scope.dataFinal+'"}]';
+    var baseQuery = '[{"redeSocial":"'+$scope.redeSocial+'","portal": "'+$scope.portal+'","dataInicial": "'+$scope.dataInicial+'","dataFinal": "'+$scope.dataFinal+'","orderBy": "'+$scope.ordenacao+'"}]';
 	var query = JSON.parse( baseQuery );
     var deferred = $q.defer();
 	

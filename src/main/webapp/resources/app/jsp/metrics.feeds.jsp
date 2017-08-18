@@ -44,16 +44,6 @@
 				    <option ng-repeat="p in portais" ng-if="p != '' && p != []" value="{{p}}">{{p}}</option>
 				  </select>
 				</div>
-				<!-- <div class="col-lg-2" >
-					Data:
-					<div class="radio">
-					  <label><input type="radio" name="dataOption" ng-model="dataOption" value="gravacao">Gravaï¿½ï¿½o</label>
-					</div>
-					<div class="radio">
-					  <label><input type="radio" name="dataOption" ng-model="dataOption" value="criacao">Criaï¿½ï¿½o</label>
-					</div>
-				</div>
-				 -->
 				<div class="col-sm-3">
 				Data Criação:
 					<div class='col-sm-12'>
@@ -77,6 +67,14 @@
 							</span>
 						</div>
 					</div>
+				</div>
+				<div class="form-group col-lg-2">
+				  <label for="portais">Ordenação:</label>
+				  <select class="form-control" id="ordenacao" ng-model="ordenacao">
+				    <option value="dataCriacao">Data criação</option>
+				    <option value="retweets" ng-if="checkRedeSocial == 'redeTwitter'">Retweets</option>
+				    <option value="reactions" ng-if="checkRedeSocial == 'redeFacebook'">Reações</option>
+				  </select>
 				</div>
 			</div>
 				<div class="col-lg-12" style="text-align:center;margin-top:15px;">
