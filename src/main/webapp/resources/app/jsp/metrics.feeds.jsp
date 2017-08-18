@@ -47,10 +47,10 @@
 				<!-- <div class="col-lg-2" >
 					Data:
 					<div class="radio">
-					  <label><input type="radio" name="dataOption" ng-model="dataOption" value="gravacao">Gravação</label>
+					  <label><input type="radio" name="dataOption" ng-model="dataOption" value="gravacao">Gravaï¿½ï¿½o</label>
 					</div>
 					<div class="radio">
-					  <label><input type="radio" name="dataOption" ng-model="dataOption" value="criacao">Criação</label>
+					  <label><input type="radio" name="dataOption" ng-model="dataOption" value="criacao">Criaï¿½ï¿½o</label>
 					</div>
 				</div>
 				 -->
@@ -113,12 +113,12 @@
 					<img src="{{metrica.imagem}}" style="width:100%" />
 				</div>
 					<div>
-						<a href="http://{{metrica.link}}"  target="_blank" title="{{metrica.mensagem}}{{metrica.texto}}">
+						<a href="{{metrica.link}}"  target="_blank" title="{{metrica.mensagem}}{{metrica.texto}}">
 							<span class="reticencias" ng-if="metrica.imagem != ''">{{metrica.mensagem | limitTo:25}}{{metrica.texto | limitTo:25}}...</span>
 							<span ng-if="metrica.imagem == ''">{{metrica.mensagem}}{{metrica.texto}}</span>
 						</a>
 					</div>
-					<span ng-if="metrica.nomePagina != null">Página Facebook: {{metrica.nomePagina}}<br></span>
+					<span ng-if="metrica.nomePagina != null">Página Facebok: {{metrica.nomePagina}}<br></span>
 					<span ng-if="metrica.nomeTwitter != null" >Twitter: {{metrica.nomeTwitter}}<br></span>
 					<div style="text-align:right;" ng-if="metrica.reactions > 0">
 						<button type="button" class="btn btn-primary" data-toggle="modal" id="btnFace" ng-click="modalFace(metrica.link)"><i class="fa fa-facebook" aria-hidden="true" ></i> {{metrica.reactions}}</button>
@@ -139,7 +139,7 @@
         <h5 class="modal-title">
         
         <img src="{{imagem}}" width="100px"/>
-        <a href="{{link}}" target="_blank">{{mensagem | urlencode}}</a>
+        <a href="{{link}}" target="_blank">{{mensagem}}</a>
         
         
         </h5>
