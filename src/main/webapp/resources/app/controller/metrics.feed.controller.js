@@ -61,14 +61,16 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 			$scope.rede.push("facebook");
 			
 			carregaPortais();
-			$scope.portaisFacebook = $scope.portais;
+			
+			setTimeout(function(){ $scope.portaisFacebook = $scope.portais; }, 500);
 			
 			url = '/RadarSocialRegras/twitterTodosPortais';
 			$scope.rede.push("twitter");
 			carregaPortais();
-			$scope.portaisTwitter = $scope.portais;
+			setTimeout(function(){ $scope.portaisTwitter = $scope.portais; }, 500);
 			
-			$scope.portais.push($scope.portaisFacebook,$scope.portaisTwitter);
+			setTimeout(function(){ $scope.portais.push($scope.portaisFacebook,$scope.portaisTwitter); }, 500);
+			
 		}
 		else if($scope.checkRedeSocial == "redeFacebook"){
 			url = '/RadarSocialRegras/facebookTodosPortais';

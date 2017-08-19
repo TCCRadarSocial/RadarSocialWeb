@@ -28,7 +28,7 @@
 			<div>
 			<div class="col-lg-10">
 				<div class="col-lg-2" >
-				Rede Social:
+				<b>Rede Social:</b>
 					<div class="radio">
 					  <label><input type="radio" name="option" ng-model="checkRedeSocial" value="redeAmbos" ng-click="selecionaRede()">Ambos</label>
 					</div>
@@ -46,7 +46,7 @@
 				  </select>
 				</div>
 				<div class="col-sm-3">
-				Data Criação:
+				<b>Data Criação:</b>
 					<div class='col-sm-12'>
 						Inicial:
 						<div class='input-group date' id='datetimepicker1'
