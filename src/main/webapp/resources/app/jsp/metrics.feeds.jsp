@@ -15,13 +15,14 @@
 					ng-if="labelDataInicial != ''">Data Inicial:
 					{{labelDataInicial}} |</span> 
 					<span ng-if="labelDataFinal != ''">Data
-					Final: {{labelDataFinal}} <button type="button" class="btn btn-primary" 
+					Final: {{labelDataFinal}} |</span>
+					<!-- <button type="button" class="btn btn-primary" 
 					 ng-if="dataInicialAnterior !='' && dataFinalAnterior != ''" 
-					 ng-click="RedefinirData()">Redefinir Filtro</button> 
-					|</span>
+					 ng-click="RedefinirData()">Redefinir Filtro</button>  -->
+					
 					<span ng-if="labelPortais != ''">Portais:
 					{{labelPortais}}</span> 
-					<button type="button" class="btn btn-primary" ng-click="RedefinirPortal()" ng-if="portal != ''">Redefinir Filtro</button>
+					<!--  <button type="button" class="btn btn-primary" ng-click="RedefinirPortal()" ng-if="portal != ''">Redefinir Filtro</button> -->
 					<br>
 			</div>
 			<div>
@@ -146,7 +147,7 @@
 		<nvd3 options='options' data='data' api="api"></nvd3>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
       </div>
     </div>
 

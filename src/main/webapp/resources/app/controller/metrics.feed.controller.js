@@ -21,6 +21,9 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 	
 	  
 	
+	$scope.inicial = moment().subtract(1, 'days').format('DD/MM/YYYY - HH:mm:ss');
+	$scope.final = moment().format('DD/MM/YYYY - HH:mm:ss');
+	
 	$scope.dataInicial = moment().subtract(1, 'days').format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
 	$scope.dataFinal = moment().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
 	
@@ -30,8 +33,8 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 	$scope.link = "";
 	$scope.labelPortais = "";
 	$scope.labelLink = "";
-	$scope.dataInicialAnterior = "";
-    $scope.dataFinalAnterior = "";
+//	$scope.dataInicialAnterior = "";
+//    $scope.dataFinalAnterior = "";
     $scope.checkRedeSocial = "redeAmbos";
     $scope.ordenacao = "dataCriacao";
 //    $scope.portais = [];
@@ -89,9 +92,9 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 
 //		if(angular.element(document.querySelector('#dataInicial')).val() != "" && angular.element(document.querySelector('#dataFinal')).val() != ""){
 			
-			$scope.dataInicial = angular.element(document.querySelector('#dataInicial')).val();
+			$scope.dataInicial = angular.element(document.querySelector('#dataInicial')).val() != "" ? angular.element(document.querySelector('#dataInicial')).val() : $scope.inicial;
 			$scope.dataInicial =   moment($scope.dataInicial, 'DD/MM/YYYY - HH:mm:ss').format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
-			$scope.dataFinal = angular.element(document.querySelector('#dataFinal')).val();
+			$scope.dataFinal = angular.element(document.querySelector('#dataFinal')).val() != "" ? angular.element(document.querySelector('#dataFinal')).val() : $scope.final;
 			$scope.dataFinal =   moment($scope.dataFinal, 'DD/MM/YYYY - HH:mm:ss').format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
 			
 
@@ -123,14 +126,14 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 //		}
 	}
 	
-	$scope.RedefinirData = function(){
-		$scope.dataInicial = $scope.dataInicialAnterior;
-		$scope.dataFinal = $scope.dataFinalAnterior;
-		$scope.dataInicialAnterior = "";
-        $scope.dataFinalAnterior = "";
-        
-        carregaTudo();
-	}
+//	$scope.RedefinirData = function(){
+//		$scope.dataInicial = $scope.dataInicialAnterior;
+//		$scope.dataFinal = $scope.dataFinalAnterior;
+//		$scope.dataInicialAnterior = "";
+//        $scope.dataFinalAnterior = "";
+//        
+//        carregaTudo();
+//	}
 	
 	$scope.RedefinirLink = function(){
 		$scope.link = "";
@@ -145,8 +148,10 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 	carregaTudo();
 	
 	function carregaTudo(){
-		if($scope.opcaoPortal != undefined)
+		if($scope.opcaoPortal != undefined){
 			$scope.portal=$scope.opcaoPortal;
+			$scope.labelPortais = $scope.portal;
+		}
 		else
 			$scope.portal = "";
 		
@@ -155,12 +160,12 @@ angular.module('myApp').controller('feedController', function($scope,$http,$q,$r
 //		$scope.dataFinal = moment($scope.dataFinal).subtract(3, 'hour');
 		
 		
-		$scope.dataInicial = moment().subtract(1, 'days').utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
-		$scope.dataFinal = moment().utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
+		//$scope.dataInicial = moment($scope.dataInicial).subtract(1, 'days').utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
+		//$scope.dataFinal = moment($scope.dataFinal).utc().format('YYYY-MM-DDTHH:mm:ss')+'.000Z';
 		
 		carregaFeeds();
-		$scope.labelDataInicial = moment($scope.dataInicial, 'YYYY-MM-DDTHH:mm:ss.000Z').format('DD/MM/YYYY - HH:mm:ss');
-		$scope.labelDataFinal = moment($scope.dataFinal, 'YYYY-MM-DDTHH:mm:ss.000Z').format('DD/MM/YYYY - HH:mm:ss');
+		$scope.labelDataInicial = moment($scope.dataInicial, 'YYYY-MM-DDTHH:mm:ss.000Z').utc().format('DD/MM/YYYY - HH:mm:ss');
+		$scope.labelDataFinal = moment($scope.dataFinal, 'YYYY-MM-DDTHH:mm:ss.000Z').utc().format('DD/MM/YYYY - HH:mm:ss');
 	}
 	
 //	$scope.currentPage = 1;
